@@ -1,54 +1,50 @@
 import React from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
+
+export default function Login() {
+    return (
+        <div className={css(styles.AppBody)}>
+            <p>
+                Login to access the full dashboard
+            </p>
+            <form className={css(styles.AppBodyForm)}>
+                <div>
+                    <label htmlFor="email" className={css(styles.AppBodyLabel)}>
+                        Email
+                    </label>
+                    <input type="email" name="email" className={css(styles.AppBodyInput)}/>
+                </div>
+                <div>
+                    <label htmlFor="password" className={css(styles.AppBodyLabel)}>
+                        Password
+                    </label>
+                    <input type="password" name="password" className={css(styles.AppBodyInput)}/>
+                </div>
+                <button type="submit" className={css(styles.AppBodyButton)}>OK</button>
+            </form>
+        </div>
+    )
+}
 
 const styles = StyleSheet.create({
-	'App-body': {
-		fontSize: '1.4rem',
-		padding: '1.2em',
-		height: '45%',
-	},
-
-	'form-inputs': {
-		display: 'flex',
-		gap: '2em',
-		alignItems: 'center',
-	},
-
-	input: {
-		height: '1.4rem',
-		marginLeft: '10px',
-	},
-});
-
-const Login = () => {
-	return (
-		<>
-			<div className={css(styles['App-body'])}>
-				<p>Login to access the full dashboard</p>
-				<section className={css(styles['form-inputs'])}>
-					<section className='input'>
-						<label htmlFor='email'>Email:</label>
-						<input
-							type='email'
-							name='email'
-							id='email'
-							className={css(styles.input)}
-						/>
-					</section>
-					<section className='input'>
-						<label htmlFor='password'>Password: </label>
-						<input
-							type='password'
-							name='password'
-							id='password'
-							className={css(styles.input)}
-						/>
-					</section>
-					<button>OK</button>
-				</section>
-			</div>
-		</>
-	);
-};
-
-export default Login;
+    AppBody: {
+        padding: '36px 24px'
+    },
+    AppBodyInput: {
+        padding: '0 16px 0 8px',
+        border: '1px solid #D3D3D3',
+        borderRadius: '3px'
+    },
+    AppBodyLabel: {
+        marginRight: '5px'
+    },
+    AppBodyForm: {
+        display: 'flex',
+        gap: '1rem'
+    },
+    AppBodyButton: {
+        border: '1px solid #D3D3D3',
+        borderRadius: '3px',
+        background: 'transparent'
+    }
+})

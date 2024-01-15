@@ -1,10 +1,10 @@
 import React from 'react';
-import './Notifications.css';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropeTypes from 'prop-types';
 import NotificationItemShape from './NotificationItemShape';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
+
 
 class Notifications extends React.Component {
   constructor(props) {
@@ -12,34 +12,23 @@ class Notifications extends React.Component {
     this.markAsRead = this.markAsRead.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
-  }
-
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.listNotifications.length > this.props.listNotifications.length;
+  }
+
   render() {
     return (
-      <>
+      <div className={css(styles.Wrapper)}>
         <div className='menuItem'>
           Your notifications
         </div>
         {this.props.displayDrawer? 
-            <div className={css(notificationStyles.notifications)}>
-              <button style={{
-                color: '#3a3a3a',
-                fontWeight: 'bold',
-                background: 'none',
-                border: 'none',
-                fontSize: '15px',
-                position: 'absolute',
-                right: '3px',
-                top: '3px',
-                cursor: 'pointer',
-                outline: 'none',
-              }}
+            <div className={css(styles.Notifications)}>
+              <button className={css(styles.NotificationsBtn)}
               aria-label="Close"
               onClick={(e) => {
                 console.log('Close button has been clicked');
@@ -66,7 +55,6 @@ class Notifications extends React.Component {
                     html={val.html}
                     key={val.id}
                     markAsRead={this.markAsRead}
-                    id={val.id}
                   />
                   })
                 }
@@ -76,22 +64,55 @@ class Notifications extends React.Component {
             null
         }
         
-      </>
+      </div>
     );
   }
 }
 
-const notificationStyles = StyleSheet.create({
-	notifications: {
-    border: '3px dotted var(--holberton-red)',
+const styles = StyleSheet.create({
+  Notifications: {
+    border: '3px dotted #e1484c',
     padding: '6px 12px',
+    position: 'relative',
+    marginTop: 12
+  },
+  NotificationsBtn: {
+    color: '#3a3a3a',
+    fontWeight: 'bold',
+    background: 'none',
+    border: 'none',
+    fontSize: '15px',
     position: 'absolute',
-    top: '21px',
-    right: '7px',
-    marginTop: '12px',
-    zIndex: '100',
-	}
-});
+    right: '3px',
+    top: '3px',
+    cursor: 'pointer',
+    outline: 'none',
+  },
+  li: {
+    '[data-priority="default"]': {
+      color: 'blue'
+    },
+    '[data-priority="urgent"]': {
+      color: '#3a3a3a'
+    },
+    '[data-notification-type="default"]': {
+      color: 'blue'
+    },
+    '[data-notification-type="urgent"]': {
+      color: '#3a3a3a'
+    },
+    ':nth-child(3)': {
+      color: 'yellow'
+    }
+  },
+  Wrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'end'
+  }
+})
 
 Notifications.defaultProps = {
   displayDrawer: false,
